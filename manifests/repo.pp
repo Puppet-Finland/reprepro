@@ -13,34 +13,33 @@
 #
 # [*reponame*]
 #   Name of the repository. This must be unique, as it's used for the name of 
-#   the repository directory.
+#   the repository directory. Defaults to $title, i.e. name of the resources.
 # [*codename*]
 #   Distribution codename for this repository. Must match a valid codename for 
 #   overrides won't work. For example 'wheezy' or 'precise'.
 # [*architectures*]
-#   A space-separated list of supported architectures. Typically 'i386 amd64'.
+#   A space-separated list of supported architectures. Defaults to 'i386 amd64'. 
 # [*description*]
-#   Description of this repository.
+#   Description of this repository. Defaults to 'no description'.
 # [*gpg_key_id*]
 #   ID of the GPG key used for signing the packages. Defaults to top-scope 
 #   variable $::apt_gpg_key_id.
 #
 # == Examples
 #
-# reprepro::repo {
-#   reponame => 'wheezy-stable',
+# reprepro::repo { 'wheezy-stable':
 #   codename => 'wheezy',
 #   architectures => 'i386 amd64',
-#   description => 'Wheezy repo for Acme, Inc.'
+#   description => 'Wheezy repo for Acme Inc.'
 #   gpg_key_id => 'E933A251',
 # }
 #
 define reprepro::repo
 (
-    $reponame,
+    $reponame=$title,
     $codename,
-    $architectures,
-    $description,
+    $architectures='i386 amd64',
+    $description=$title,
     $gpg_key_id = $::apt_gpg_key_id
 )
 {
