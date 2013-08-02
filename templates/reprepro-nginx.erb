@@ -1,0 +1,41 @@
+### THIS FILE IS MANAGED BY PUPPET. ANY MANUAL CHANGES WILL GET OVERWRITTEN.
+#
+# WARNING: this file is reprepro-specific. Although it should not overwrite any 
+# existing nginx configuration files, the "listen 80" option might conflict with 
+# other files and prevent nginx and/or some sites from working properly.
+
+server {
+
+	listen 80;
+
+	listen [::]:80 default ipv6only=on;
+
+	# This will filter down to location directives
+	root   /var/www;
+
+	# The server_name directive seems to be needed even if we're not hosting 
+	# several domains. If it's not enabled, the browser might get confused 
+	# and direct us to a search engine.
+	server_name  <%= fqdn %>;
+
+	access_log  /var/log/nginx/<%= fqdn %>.access.log;
+
+	location / {
+		index  index.html index.htm;
+		allow all;
+	}
+
+	location /repos {
+		autoindex on;
+		allow all;
+	}
+
+	# Block requests to directories internally used by reprepro. 
+	# Additionally make these directories root:root and 700 so that nginx 
+	# can't read them even if it wanted. Both of these approaches work as 
+	# intended. the \w* after apt/ makes sure the regular expression only 
+	# matches one directory level.
+	location ~ /repos/apt/\w*/(db|conf|incoming)/\w*$ {
+		deny all;
+	}
+}

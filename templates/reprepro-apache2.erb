@@ -1,0 +1,15 @@
+# Block access to reprepro's internal files
+<Directory "/var/www/repos/apt/*/db/">
+        Order allow,deny
+        Deny from all
+</Directory>
+
+<Directory "/var/www/repos/apt/*/conf/">
+        Order allow,deny
+        Deny from all
+</Directory>
+
+<Directory "/var/www/repos/apt/*/incoming/">
+        Order allow,deny
+        Deny from all
+</Directory>
