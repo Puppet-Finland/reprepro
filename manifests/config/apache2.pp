@@ -3,7 +3,7 @@
 #
 # Configure Apache2 for serving reprepro repositories
 #
-class reprepro::config::apache2 {
+class reprepro::config::apache2($documentroot) {
 
     file { 'reprepro-reprepro-apache2':
         name => '/etc/apache2/conf.d/reprepro',

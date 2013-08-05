@@ -4,7 +4,10 @@
 # Manage reprepro repositories.
 #
 # == Parameters
-#
+# [*documentroot*]
+#   Web server's document root directory. Defaults to
+#   $::softwarerepo::config::documentroot, which defaults to
+#   $::webserver::config::documentroot, which is '/var/www' by default.
 # [*configure_webserver*]
 #   Select which webserver to configure. Valid values 'apache2', 'nginx' and 
 #   'false' (don't configure). Defaults to 'false'.
@@ -30,15 +33,23 @@
 #
 class reprepro
 (
+    $documentroot=$::softwarerepo::config::documentroot,
     $configure_webserver='false'
 )
 {
     include reprepro::install
-    include reprepro::config
+
+    class { 'reprepro::config':
+        documentroot => $documentroot,
+    }
 
     if $configure_webserver == 'nginx' {
-        include reprepro::config::nginx
+        class { 'reprepro::config::nginx':
+            documentroot => $documentroot,
+        }
     } elsif $configure_webserver == 'apache2' {
-        include reprepro::config::apache2
+        class { 'reprepro::config::apache2':
+            documentroot => $documentroot,
+        }
     }
 }

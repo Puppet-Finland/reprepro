@@ -6,7 +6,7 @@
 # WARNING: this may break other nginx sites on the same server, as nginx assumes 
 # one configuration file is used.
 #
-class reprepro::config::nginx {
+class reprepro::config::nginx($documentroot) {
 
     file { 'reprepro-reprepro-nginx':
         name => '/etc/nginx/sites-enabled/reprepro',

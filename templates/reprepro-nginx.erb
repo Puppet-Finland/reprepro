@@ -11,7 +11,7 @@ server {
 	listen [::]:80 default ipv6only=on;
 
 	# This will filter down to location directives
-	root   /var/www;
+	root   <%= documentroot %>;
 
 	# The server_name directive seems to be needed even if we're not hosting 
 	# several domains. If it's not enabled, the browser might get confused 

@@ -11,6 +11,9 @@
 #
 # == Parameters
 #
+# [*documentroot*]
+#   Web server's document root directory. Defaults to
+#   $::reprepro::config::documentroot.
 # [*reponame*]
 #   Name of the repository. This must be unique, as it's used for the name of 
 #   the repository directory. Defaults to $title, i.e. name of the resources.
@@ -36,6 +39,7 @@
 #
 define reprepro::repo
 (
+    $documentroot=$::reprepro::config::documentroot,
     $reponame=$title,
     $codename,
     $architectures='i386 amd64',
@@ -44,7 +48,7 @@ define reprepro::repo
 )
 {
     file { "reprepro-${reponame}":
-        name => "/var/www/repos/apt/${reponame}",
+        name => "${documentroot}/repos/apt/${reponame}",
         ensure => directory,
         owner => root,
         group => root,
@@ -53,7 +57,7 @@ define reprepro::repo
     }
 
     file { "reprepro-${reponame}-conf":
-        name => "/var/www/repos/apt/${reponame}/conf",
+        name => "${documentroot}/repos/apt/${reponame}/conf",
         ensure => directory,
         owner => root,
         group => root,
@@ -62,7 +66,7 @@ define reprepro::repo
     }
 
     file { "reprepro-${reponame}-distributions":
-        name => "/var/www/repos/apt/${reponame}/conf/distributions",
+        name => "${documentroot}/repos/apt/${reponame}/conf/distributions",
         ensure => present,
         content => template('reprepro/distributions.erb'),
         owner => root,
@@ -72,7 +76,7 @@ define reprepro::repo
     }
 
     file { "reprepro-override.${reponame}":
-        name => "/var/www/repos/apt/${reponame}/conf/override.${codename}",
+        name => "${documentroot}/repos/apt/${reponame}/conf/override.${codename}",
         ensure => present,
         source => 'puppet:///files/override',
         owner => root,
@@ -82,7 +86,7 @@ define reprepro::repo
     }
 
     file { "reprepro-${reponame}-options":
-        name => "/var/www/repos/apt/${reponame}/conf/options",
+        name => "${documentroot}/repos/apt/${reponame}/conf/options",
         ensure => present,
         content => template('reprepro/options.erb'),
         owner => root,
@@ -92,7 +96,7 @@ define reprepro::repo
     }
 
     file { "reprepro-${reponame}.list":
-        name => "/var/www/repos/apt/conf/${fqdn}-${reponame}.list",
+        name => "${documentroot}/repos/apt/conf/${fqdn}-${reponame}.list",
         ensure => present,
         content => template('reprepro/codename.list.erb'),
         owner => root,
@@ -102,7 +106,7 @@ define reprepro::repo
     }
 
     file { "reprepro-${reponame}.txt":
-        name => "/var/www/repos/apt/conf/${fqdn}-${reponame}.txt",
+        name => "${documentroot}/repos/apt/conf/${fqdn}-${reponame}.txt",
         ensure => present,
         content => template('reprepro/codename.txt.erb'),
         owner => root,

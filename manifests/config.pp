@@ -3,9 +3,9 @@
 #
 # Prepare repository base directories
 #
-class reprepro::config {
+class reprepro::config($documentroot) {
 
-    file { [ '/var/www/repos/apt', '/var/www/repos/apt/conf' ]:
+    file { [ "${documentroot}/repos/apt", "${documentroot}/repos/apt/conf" ]:
         ensure => directory,
     }
 }
