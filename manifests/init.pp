@@ -37,6 +37,10 @@ class reprepro
     $configure_webserver='false'
 )
 {
+
+# Rationale for this is explained in init.pp of the sshd module
+if hiera('manage_reprepro') != 'false' {
+
     include reprepro::install
 
     class { 'reprepro::config':
@@ -52,4 +56,5 @@ class reprepro
             documentroot => $documentroot,
         }
     }
+}
 }
