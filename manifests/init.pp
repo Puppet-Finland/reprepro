@@ -39,7 +39,7 @@ class reprepro
 {
 
 # Rationale for this is explained in init.pp of the sshd module
-if hiera('manage_reprepro') != 'false' {
+if hiera('manage_reprepro', 'true') != 'false' {
 
     include reprepro::install
 
