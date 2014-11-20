@@ -30,12 +30,12 @@
 #
 # == Examples
 #
-# reprepro::repo { 'wheezy-stable':
-#   codename => 'wheezy',
-#   architectures => 'i386 amd64',
-#   description => 'Wheezy repo for Acme Inc.'
-#   gpg_key_id => 'E933A251',
-# }
+#   reprepro::repo { 'wheezy-stable':
+#       codename => 'wheezy',
+#       architectures => 'i386 amd64',
+#       description => 'Wheezy repo for Acme Inc.'
+#       gpg_key_id => 'E933A251',
+#   }
 #
 define reprepro::repo
 (

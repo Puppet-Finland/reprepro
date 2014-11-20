@@ -17,19 +17,19 @@
 #
 # == Examples
 #
-# class { 'reprepro':
-#   configure_webserver => 'apache2',
-# }
+#   class { 'reprepro':
+#       configure_webserver => 'apache2',
+#   }
 #
 # == Authors
 #
 # Samuli Seppänen <samuli.seppanen@gmail.com>
+#
 # Samuli Seppänen <samuli@openvpn.net>
 #
 # == License
 #
-# BSD-lisence
-# See file LICENSE for details
+# BSD-license. See file LICENSE for details.
 #
 class reprepro
 (
